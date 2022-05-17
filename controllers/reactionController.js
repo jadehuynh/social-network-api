@@ -17,7 +17,7 @@ module.exports = {
             { $pull: {reactions: {reactionId: req.params.reactionId} }},
             {new : true}
         )
-        .then(() => res.status(200).json({ message : 'Reaction Removed'}))
+        .then(() => res.status(200).json({ message : 'Reaction destroyed'}))
         .catch((e) => res.status(500).json(e))
     }
 }
