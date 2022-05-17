@@ -6,6 +6,35 @@ const reactionsSchema = new Schema (
             type:Schema.Types.ObjectId,
             default:() => new Types.ObjectId(),
         },
-        reactionBody
+        reactionBody: {
+            type:String,
+            required:true,
+            max:280,
+        },
+        username: {
+            type:String,
+            require:true,
+        },
+        createdAt: {
+            type:Date,
+            default:Date.now,
+        },
+    },
+    {
+        toJSON:{
+            virtuals:true,
+            getters:true,
+        },
+        id:false,
     }
 )
+
+
+
+
+thoughtsSchema.virtual("reactionCount").get(function () {
+    return this.reactions.length
+})
+
+const Thoughts = model("Thoughts", thoughtsSchema)
+module.exports = Thoughts;
