@@ -1,11 +1,10 @@
-const { User } = require('../models');
+const { User, Thoughts } = require('../models');
 
-const userController = {
+
+module.exports = {
   // Get all users
   getUsers(req, res) {
     User.find()
-  
-    .select("-__v")
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -24,8 +23,8 @@ const userController = {
   // create a new user
   createUser(req, res) {
     User.create(req.body)
-      .then((user) => res.json(user))
-      .catch((err) => res.status(500).json(err));
+    .then((user) => res.json(user))
+    .catch((err) => res.status(500).json(err));
   },
   //update a user
   updateUser(req, res) {
@@ -54,4 +53,3 @@ const userController = {
   },
 };
 
-module.exports = userController;

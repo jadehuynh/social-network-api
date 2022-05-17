@@ -32,9 +32,9 @@ const reactionsSchema = new Schema (
 
 
 
-reactionsSchema.virtual("reactionCount").get(function () {
-    return this.reactions.length
-})
+// reactionsSchema.virtual("reactionCount").get(function () {
+//     return this.reactions.length
+// })
 
 const Reactions = model("Reactions", reactionsSchema)
 module.exports = Reactions;
