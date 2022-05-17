@@ -32,9 +32,9 @@ const reactionsSchema = new Schema (
 
 
 
-thoughtsSchema.virtual("reactionCount").get(function () {
+reactionsSchema.virtual("reactionCount").get(function () {
     return this.reactions.length
 })
 
-const Thoughts = model("Thoughts", thoughtsSchema)
-module.exports = Thoughts;
+const Reactions = model("Reactions", reactionsSchema)
+module.exports = Reactions;

@@ -12,7 +12,7 @@ const userSchema = new Schema(
             type:String,
             require:true,
             unique:true,
-            match: /.+\@.+\..+/,
+            match: [/.+\@.+\..+/],
         },
         thoughts: [{
             type:Schema.Types.ObjectId,
@@ -26,7 +26,7 @@ const userSchema = new Schema(
     {
         toJSON:{
             virtuals:true,
-            getters:true,
+            // getters:true,
         },
         id:false,
     }
