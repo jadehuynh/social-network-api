@@ -1,13 +1,13 @@
 const { Thoughts } = require('../models');
 
 module.exports = {
-  // Get all users
+  // Get all thought
   getThought(req, res) {
     Thoughts.find()
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a single user
+  // Get a single thought
   getSingleThought(req, res) {
     Thoughts.findOne({ _id: req.params.userId })
       .select('-__v')
@@ -18,13 +18,23 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new user
+  // create a new thought
   createThought(req, res) {
     Thoughts.create(req.body)
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a user and associated apps
+  //update a thought
+  updateThought(req, res) {
+    Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId},
+        { thoughtText: req.body.thoughtText }, 
+        { new : true}
+    )
+    .then((thought) => res.json(thought))
+    .catch((e) => res.status(500).json(e))
+    }, 
+  // Delete a thought
   deleteThought(req, res) {
     Thoughts.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
