@@ -14,7 +14,7 @@ module.exports = {
         .then((thoughts) => 
         !thoughts 
         ? res.status(404).json({message: 'Nothing with that id.'})
-        : res.json(thoughts)
+        : res.json(Thoughts)
         )
         .catch((e) => res.status(500).json(e));
     },
