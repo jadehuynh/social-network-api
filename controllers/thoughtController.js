@@ -1,56 +1,56 @@
 const { ObjectId } = require('mongoose').Types; 
 const User = require('../models/User');
-const Thought = require('../models/Thought')
+const Thoughts = require('../models/Thoughts')
 
 module.exports = {
     getThoughts(req, res) {
-        Thought.find()
+        Thoughts.find()
         .then((thoughts) => res.json(thoughts))
         .catch((e) => res.status(500).json(e))
     },
     getSingleThought(req, res) {
-        Thought.findOne({ _id: req.params.thoughtId })
+        Thoughts.findOne({ _id: req.params.id })
         .select('-__v')
-        .then((thought) => 
-        !thought 
-        ? res.status(404).json({message: 'No thought with that id.'})
-        : res.json(thought)
+        .then((thoughts) => 
+        !thoughts 
+        ? res.status(404).json({message: 'Nothing with that id.'})
+        : res.json(thoughts)
         )
         .catch((e) => res.status(500).json(e));
     },
     createThought(req, res) {
-        Thought.create(req.body)
+        Thoughts.create(req.body)
         //   console.log(req.body)
-        .then((thought) => {
+        .then((thoughts) => {
       return  User.findOneAndUpdate(
-                { _id: req.params.userId},
-                { $addToSet: { thoughts: thought._id }},
+                { _id: req.params.id},
+                { $addToSet: { thoughts: thoughts._id }},
                 { new : true}
             );
         })
-        .then((thought) => 
-            !thought
-                ? res.status(404).json({ message : 'No user with this id. Cannot create thought.'})
-                : res.json(thought)
+        .then((thoughts) => 
+            !thoughts
+                ? res.status(404).json({ message : 'No user with this id.'})
+                : res.json(thoughts)
         )
         .catch((e) => {
             return res.status(500).json(e)
         })
     }, 
     updateThought(req, res) {
-        Thought.findOneAndUpdate(
-            { _id: req.params.thoughtId},
+        Thoughts.findOneAndUpdate(
+            { _id: req.params.id},
             { thoughtText: req.body.thoughtText }, 
             { new : true}
         )
-        .then((thought) => res.json(thought))
+        .then((thoughts) => res.json(thoughts))
         .catch((e) => res.status(500).json(e))
         }, 
     deleteThought(req, res) {
-        Thought.findOneAndRemove( {_id : req.params.thoughtId})
-        .then((thought) => 
-        !thought
-        ? res.status(404).json({ message: 'No thought with this ID to delete on'})
+        Thoughts.findOneAndRemove( {_id : req.params.id})
+        .then((thoughts) => 
+        !thoughts
+        ? res.status(404).json({ message: 'No thought available.'})
         : res.status(200).json({ message: 'Thought Deleted'})
         )
         .catch((e) => res.status(500).json(e))
