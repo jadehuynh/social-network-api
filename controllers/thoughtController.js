@@ -23,7 +23,7 @@ module.exports = {
         //   console.log(req.body)
         .then((thoughts) => {
       return  User.findOneAndUpdate(
-                { _id: req.params.id},
+                { _id: req.params.userId},
                 { $addToSet: { thoughts: thoughts._id }},
                 { new : true}
             );
