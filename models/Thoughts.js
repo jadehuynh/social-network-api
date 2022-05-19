@@ -12,11 +12,11 @@ const thoughtsSchema = new Schema (
             type:Date,
             default:Date.now,
         },
-        username: {
+        username: [{
             type:String,
             required:true,
             ref: 'User',
-        },
+        }],
         reactions: [{
             type:Schema.Types.ObjectId,
             ref: "reactions",
@@ -27,7 +27,7 @@ const thoughtsSchema = new Schema (
             virtuals:true,
             getters:true,
         },
-        id:true,
+        id:false,
     }
 )
 
